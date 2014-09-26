@@ -70,6 +70,12 @@ class YoHandler(web.RequestHandler):
 
         for l in spl:
             if l.item_id == id:
+            	if l.title == currlist:
+            		player.pause()
+            		return
+            	
+            	currlist = l.title
+            	
                 player.clear_queue()
                 tracks = player.browse(l)
 
