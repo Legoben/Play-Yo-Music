@@ -17,7 +17,8 @@ conf['sonos_id'] = tmp[inp].uid
 player = tmp[inp]
 
 
-lists = player.get_sonos_playlists()['item_list']
+lists = player.get_sonos_playlists() + player.get_playlists()
+print(lists)
 new = []
 
 for acct in accts:
