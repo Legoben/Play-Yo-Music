@@ -6,6 +6,5 @@ Requires python libraries:
     Tornado
     SoCo (From git repo, not pypy)
 
-conf.json:
-    {"portnum":9010}
-
+Currently being weird:
+    Controller metadata when playing tracks from music services (confirmed bug in SoCo library).
