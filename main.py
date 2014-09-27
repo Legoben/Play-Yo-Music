@@ -1,7 +1,8 @@
 from tornado import ioloop, web
 import soco
 import json
-import  random
+import random
+import sys
 print("restarted")
 
 
@@ -72,8 +73,12 @@ class YoHandler(web.RequestHandler):
         for l in spl:
             if l.item_id == id:
                 if l.title == currlist:
-                    print("paused")
-                    player.pause()
+                    if player.get_current_transport_info()['current_transport_state'] != "PLAYING":
+                        print("played")
+                        player.play()
+                    else:
+                        print("paused")
+                        player.pause()
                     return
 
 
@@ -106,7 +111,7 @@ class YoHandler(web.RequestHandler):
 
 
 
-player = soco.discover().pop() #ToDo: User pick which Sonos
+#player = soco.discover().pop() #ToDo: User pick which Sonos
 currlist = None
 #player.play_uri(list.uri)
 
@@ -120,8 +125,15 @@ class IndexHandler(web.RequestHandler):
 conf = json.loads(open("conf.json", "r").read())
 #playlists = json.loads(open("playlists.json", "r").read())
 
+player = None
 
+for s in soco.discover(): #Find SONOS from conf
+    if s.uid == conf['sonos_id']:
+        player = s
+        break
 
+if player == None:
+    sys.exit("Specific Sonos not found. Try running config.py again?")
 
 app = web.Application([
     (r'/', IndexHandler),
