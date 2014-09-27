@@ -33,6 +33,7 @@ class YoHandler(web.RequestHandler):
 
 
     def get(self, *args, **kwargs):
+        global currlist
         username = self.request.path[1:] #Where the Yo was sent
 
         yofrom = self.get_argument("username", None, False)
@@ -70,12 +71,14 @@ class YoHandler(web.RequestHandler):
 
         for l in spl:
             if l.item_id == id:
-            	if l.title == currlist:
-            		player.pause()
-            		return
-            	
-            	currlist = l.title
-            	
+                if l.title == currlist:
+                    print("paused")
+                    player.pause()
+                    return
+
+
+                currlist = l.title
+
                 player.clear_queue()
                 tracks = player.browse(l)
 
