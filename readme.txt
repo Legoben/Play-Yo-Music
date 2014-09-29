@@ -4,7 +4,7 @@ Will move over to GitHub once everything is done.
 
 Requires python libraries:
     Tornado
-    SoCo (From git repo, not pypy)
+    SoCo (From git repo, not pypi)
 
 Required other:
     https://ngrok.com/
